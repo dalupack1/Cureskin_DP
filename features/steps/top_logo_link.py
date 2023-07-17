@@ -11,21 +11,16 @@ TOP_LOGO_LINK = (By.CSS_SELECTOR, "a.header__heading-link")
 CART_LINK = (By.CSS_SELECTOR, "span#cart-icon-bubble")
 
 
-@given("Open Cureskin main page")
-def open_cureskin_main_page(context):
-    context.driver.get('https://shop.cureskin.com/')
+@given("Open search results page")
+def open_search_results_page(context):
+    context.app.Search_results_page.open_search_results_page()
 
 
-@when("Click on cart")
-def click_cart(context):
-    context.driver.find_element(*CART_LINK).click()
-
-
-@when("Click on logo")
+@when("Click on Cureskin logo")
 def click_top_logo(context):
-    context.driver.find_element(*TOP_LOGO_LINK).click()
+    context.app.Header.top_logo()
 
 
 @then("Verify user is on homepage")
 def homepage_verification(context):
-    context.driver.wait.until(EC.url_to_be('https://shop.cureskin.com/'))
+    context.app.Mainpage.homepage_verification()
