@@ -4,6 +4,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+
 
 from app.application import Application
 
@@ -17,11 +20,18 @@ def browser_init(context):
     #service = Service(driver_path)
     #context.driver = webdriver.Chrome(service=service)
 
-    driver_path = ChromeDriverManager().install()
-    service = Service(driver_path)
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    context.driver = webdriver.Chrome(chrome_options=options,service=service)
+    #driver_path = ChromeDriverManager().install()
+    #service = Service(driver_path)
+    #options = webdriver.ChromeOptions()
+    #options.add_argument('--headless')
+    #context.driver = webdriver.Chrome(chrome_options=options,service=service)
+
+    #context.driver = webdriver.Firefox(executable_path=r'C:\Users\brown\CureskinProject\geckodriver')
+
+    options = Options()
+    options.headless = True
+    driver = webdriver.Firefox(options=options, executable_path=r'C:\Users\brown\CureskinProject\geckodriver')
+
 
     context.driver.maximize_window()
 
