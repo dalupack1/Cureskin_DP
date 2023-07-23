@@ -12,7 +12,7 @@ from app.application import Application
 
 
 
-def browser_init(context):
+def browser_init(context,logo_link):
     """
     :param context: Behave context
     """
@@ -26,11 +26,23 @@ def browser_init(context):
     #options.add_argument('--headless')
     #context.driver = webdriver.Chrome(chrome_options=options,service=service)
 
-    #context.driver = webdriver.Firefox(executable_path=r'C:\Users\brown\CureskinProject\geckodriver')
+    context.driver = webdriver.Firefox(executable_path=r'C:\Users\brown\CureskinProject\geckodriver')
 
-    options = Options()
-    options.headless = True
-    driver = webdriver.Firefox(options=options, executable_path=r'C:\Users\brown\CureskinProject\geckodriver')
+    #options = Options()
+    #options.headless = True
+    #driver = webdriver.Firefox(options=options, executable_path=r'C:\Users\brown\CureskinProject\geckodriver')
+
+    #### BROWSERSTACK ####
+    desired_cap = {
+         'browser': 'Firefox',
+         'os_version': '11',
+         'os': 'Windows',
+         'name': logo_link
+      }
+    bs_user = 'dalupack_lC9aX5'
+    bs_key = 'HyyVRiy67szwWJtuxTbE'
+    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
 
 
     context.driver.maximize_window()
@@ -43,7 +55,7 @@ def browser_init(context):
 
 def before_scenario(context, scenario):
     print('\nStarted scenario: ', scenario.name)
-    browser_init(context)
+    browser_init(context, scenario.name)
 
 
 def before_step(context, step):
