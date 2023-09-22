@@ -1,6 +1,7 @@
 from pages.Header import Header
 from pages.Mainpage import MainPage
 from pages.Search_results_page import SearchResultsPage
+import allure
 
 class Application:
 
